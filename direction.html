@@ -168,21 +168,29 @@ details ul{margin:6px 0 0;padding-left:18px;font-size:12.5px;color:var(--soft)}
    bloc place en dernier pour l'emporter sur toutes les regles de base ci-dessus */
 @media (min-width:641px){
   .wrap,.tabs{max-width:1080px}
-  header{padding:calc(6px + env(safe-area-inset-top)) 20px 0}
+  header{padding:calc(4px + env(safe-area-inset-top)) 20px 0}
   .hdTop{max-width:none;padding:0}
-  .hdTitre{font-size:14px}
-  .hdTitre small{font-size:9px;margin-bottom:0}
-  .hdBtn{width:30px;height:30px;font-size:15px}
-  .tabs{margin:6px auto 0;padding-bottom:0}
-  .tab{padding:5px 12px 7px;font-size:12.5px}
-  .chips{padding:6px 0 2px}
-  .selBar{margin:4px 0 8px}
-  .enTete{margin:2px 2px 6px}
-  .enTete b{font-size:14px}
-  .grille{border-spacing:6px}
-  .grille td{padding:4px}
-  .grille .seance{padding:5px 7px 5px 9px}
-  .grille .seance+.seance{margin-top:3px}
+  .hdTitre{font-size:13px}
+  .hdTitre small{font-size:8.5px;margin-bottom:0}
+  .hdBtn{width:26px;height:26px;font-size:14px}
+  .tabs{margin:4px auto 0;padding-bottom:0}
+  .tab{padding:4px 12px 5px;font-size:12px}
+  .chips{padding:4px 0 2px}
+  .chip{padding:5px 11px;font-size:12px}
+  .selBar{justify-content:center;margin:4px 0 6px}
+  .selBar select{flex:none;width:320px;padding:7px 10px;font-size:13px;text-align:center}
+  .fleche{width:32px;height:32px;font-size:13px}
+  .enTete{margin:2px 2px 4px}
+  .enTete b{font-size:13.5px}
+  .enTete span{font-size:11px}
+  .grille{border-spacing:5px}
+  .grille th{padding:2px 0;font-size:9px}
+  .grille th.jour{width:78px;font-size:12px}
+  .grille td{padding:3px}
+  .grille .seance{padding:4px 6px 4px 8px}
+  .grille .seance .qui{font-size:12px}
+  .grille .seance .quoi{font-size:10px}
+  .grille .seance+.seance{margin-top:2px}
 }
 </style>
 </head>
