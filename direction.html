@@ -22,6 +22,7 @@ body{margin:0;background:var(--paper);color:var(--ink);
 button,select,input{font:inherit}
 button{cursor:pointer;border:0;background:none;color:inherit}
 .wrap{max-width:520px;margin:0 auto;padding:0 14px 90px}
+@media (min-width:641px){ .wrap,.hdTop,.tabs{max-width:1080px} }
 
 /* ---------- connexion ---------- */
 .login{max-width:380px;margin:12vh auto;padding:26px 22px;background:var(--blanc);
@@ -103,6 +104,21 @@ header{position:sticky;top:0;z-index:30;background:var(--bleu-fonce);color:#fff;
 .seance .ou{display:inline-block;margin-top:5px;font-size:9.5px;font-weight:700;letter-spacing:.05em;
   padding:2px 7px;border-radius:6px;background:var(--vert-clair);color:var(--vert)}
 .seance.fad .ou{background:var(--bleu-clair);color:var(--bleu)}
+.cadre-grille{display:none;overflow-x:auto;margin-top:10px;padding-bottom:6px}
+.grille{width:100%;min-width:900px;border-collapse:separate;border-spacing:8px;table-layout:fixed}
+.grille th{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);
+  text-align:center;padding:4px 0}
+.grille th.jour{text-align:right;font-size:13px;font-weight:700;text-transform:none;color:var(--ink);
+  padding-right:10px;width:92px}
+.grille td{background:var(--blanc);border:1px solid var(--line);border-radius:11px;vertical-align:top;
+  padding:5px;box-shadow:var(--ombre)}
+.grille td.vide{background:transparent;border-style:dashed;box-shadow:none}
+.grille .seance{padding:5px 7px 6px 10px}
+.grille .seance+.seance{margin-top:4px}
+@media (min-width:641px){
+  .cadre-grille{display:block}
+  .liste-jours{display:none}
+}
 
 /* ---------- absences ---------- */
 .slotCard{background:var(--blanc);border-radius:16px;box-shadow:var(--ombre);padding:13px 15px;margin-bottom:10px}
@@ -527,6 +543,18 @@ function seanceHtml(x, qui, quoi){
        + `<span class="quoi">${esc(quoi)}</span><span class="ou">${esc(ou)}</span></span>`;
 }
 function grilleHtml(sessions, cellule){
+  /* tableau jours x créneaux (grand écran) et liste par jour (téléphone), mêmes données,
+     même présentation que « Emplois ISTA Hay Riad » : les deux rendus coexistent dans le DOM,
+     c'est le CSS (@media min-width:641px) qui choisit lequel afficher. */
+  let t='<tr><th class="jour"></th>'+CRENEAUX.map(c=>`<th>${c}</th>`).join('')+'</tr>';
+  for(let j=0;j<6;j++){
+    t+=`<tr><th class="jour">${JOURS[j]}</th>`;
+    for(let s=0;s<4;s++){
+      const ici=sessions.filter(x=>x.jour===j && x.slot===s);
+      t+=`<td class="${ici.length?'':'vide'}">${ici.map(cellule).join('')}</td>`;
+    }
+    t+='</tr>';
+  }
   let h='';
   for(let j=0;j<6;j++){
     const duJour=sessions.filter(x=>x.jour===j).sort((a,b)=>a.slot-b.slot);
@@ -538,7 +566,7 @@ function grilleHtml(sessions, cellule){
       : '<p class="rien">aucune séance</p>';
     h+='</div>';
   }
-  return h;
+  return `<div class="cadre-grille"><table class="grille">${t}</table></div><div class="liste-jours">${h}</div>`;
 }
 
 /* ===================================================================
